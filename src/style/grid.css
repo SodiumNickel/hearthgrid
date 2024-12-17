@@ -1,0 +1,35 @@
+.standard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100px); /* 1 column for row headers + 3 columns for grid cells */
+    grid-template-rows: auto;
+    gap: 4px; /* Space between cells */
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.grid-header {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px; /* Match height of grid cells */
+}
+
+.grid-cell {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease;
+}
+
+.grid-cell:hover {
+    background-color: #e3e3e3;
+}
