@@ -1,8 +1,9 @@
 import {Card} from "./Card"
 import {useState} from "react"
 import jCards from "../assets/cards.collectible.json"
+import "../styles/overlay.css"
 
-export function Standard({closeOverlay}) {
+export function StandardOverlay({closeOverlay}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [cards, setCards] = useState([]);
 

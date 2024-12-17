@@ -1,4 +1,3 @@
-import "./styles.css"
 import StandardGrid from "./pages/StandardGrid"
 
 

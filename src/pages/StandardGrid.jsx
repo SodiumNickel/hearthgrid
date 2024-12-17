@@ -1,6 +1,6 @@
 import React, {useState} from "react"
-import {Standard} from "../components/Standard"
-import "../style/grid.css"
+import {StandardOverlay} from "../components/StandardOverlay"
+import "../styles/grid.css"
 
 const GridCell = ({row, col, value, onClick}) => {    
     return (
@@ -55,7 +55,7 @@ export default function StandardGrid() {
 
                 {overlayVisible && 
                     <div className="overlay-container">
-                        <Standard closeOverlay={closeOverlay}></Standard>
+                        <StandardOverlay closeOverlay={closeOverlay}/>
                     </div>
                 }
             </div>
