@@ -29,30 +29,36 @@ export default function StandardGrid() {
 
 
     return (
-        <div className="standard-grid">
-            <div className="grid-header"></div>
+        <div className="grid-container">
+            <div className="standard-grid">
+                <div className="grid-header"></div>
 
-            {colCategories.map((colCategory, colIndex) => (
-                <div className="grid-header" key={colIndex}>
-                    {colCategory}
-                </div>
-            ))}
-            {rowCategories.map((rowCategory, rowIndex) => (
-                <React.Fragment key={rowIndex}>
-                    <div className="grid-header">{rowCategory}</div>
-                    {colCategories.map((_, colIndex) => (
-                        <GridCell
-                            row={rowIndex}
-                            col={colIndex}
-                            value={null}
-                            onClick={openOverlay}
-                            key={colIndex}
-                        />
-                    ))}
-                </React.Fragment>
-            ))}
+                {colCategories.map((colCategory, colIndex) => (
+                    <div className="grid-header" key={colIndex}>
+                        {colCategory}
+                    </div>
+                ))}
+                {rowCategories.map((rowCategory, rowIndex) => (
+                    <React.Fragment key={rowIndex}>
+                        <div className="grid-header">{rowCategory}</div>
+                        {colCategories.map((_, colIndex) => (
+                            <GridCell
+                                row={rowIndex}
+                                col={colIndex}
+                                value={null}
+                                onClick={openOverlay}
+                                key={colIndex}
+                            />
+                        ))}
+                    </React.Fragment>
+                ))}
 
-            {overlayVisible && <Standard closeOverlay={closeOverlay}></Standard>}
+                {overlayVisible && 
+                    <div className="overlay-container">
+                        <Standard closeOverlay={closeOverlay}></Standard>
+                    </div>
+                }
+            </div>
         </div>
     );
 }

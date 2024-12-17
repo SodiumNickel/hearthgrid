@@ -69,7 +69,12 @@ export function Standard({closeOverlay}) {
                 onChange={(event) => onChange(event)}
             />
             <div className="card-grid">
-                {cards.map(card => <Card card={card} key={card.dbfId}></Card>)}
+                {cards.map(card => 
+                    <Card 
+                        name={card.name} 
+                        key={card.dbfId}
+                    />
+                )}
             </div>
             <button onClick={closeOverlay}>
                 Close

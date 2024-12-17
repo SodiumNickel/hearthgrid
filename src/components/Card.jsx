@@ -1,5 +1,5 @@
 
-export function Card({card}) {
+export function Card({name, image}) {
 
     function onClick() {
         alert("clicked")
@@ -8,7 +8,7 @@ export function Card({card}) {
     // "https://art.hearthstonejson.com/v1/256x/" + card.id + ".jpg"
     return <div className="card">
         <div className="card-image">
-            <img src={card.id} alt={card.name}></img>
+            <img src={image} alt={name}></img>
         </div>
         <div className="card-overlay">
             <button className="select-btn" onClick={onClick}>
