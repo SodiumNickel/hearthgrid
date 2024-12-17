@@ -1,9 +1,8 @@
 import {Card} from "./Card"
-import {useState} from "react"
-import jCards from "../assets/cards.collectible.json"
+import {useState, useEffect} from "react"
 import "../styles/overlay.css"
 
-export function StandardOverlay({closeOverlay, cardSelected}) {
+export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [cards, setCards] = useState([]);
 
@@ -40,7 +39,7 @@ export function StandardOverlay({closeOverlay, cardSelected}) {
         setSearchQuery(query);
 
         if(query.length >= 3){
-            var remainingCards = jCards.filter(isStandard);
+            var remainingCards = allCards.filter(isStandard);
             
             // If the beginning of the cards name matches the query
             const exactCards = remainingCards.filter((card) => exactMatch(card, query));

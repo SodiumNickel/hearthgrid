@@ -6,13 +6,22 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.card-image {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 .card-image img {
-    width: 100%;
-    height: auto;
+    width: 150%;
+    height: 150%;
+    object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
 

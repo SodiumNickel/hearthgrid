@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {StandardOverlay} from "../components/StandardOverlay"
 import "../styles/grid.css"
 
@@ -20,11 +20,36 @@ const GridCell = ({row, col, card, onClick}) => {
 };
 
 export default function StandardGrid() {
+    const [allCards, setAllCards] = useState([]);
+    useEffect(() => {
+        function fetchJSONData() {
+            fetch("https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json")
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error
+                            (`HTTP error! Status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then((data) =>
+                    setAllCards(data))
+                .catch((error) =>
+                    console.error("Unable to fetch data:", error));
+        }
+        fetchJSONData();
+    }, []);
+
     const [overlayVisible, setOverlayVisible] = useState(false);
     const [selectedCell, setSelectedCell] = useState({row: null, col: null});
     const [cardGrid, setCardGrid] = useState(
         Array(3).fill(null).map(() => Array(3).fill(null))
     );
+
+    // WILL BE CHANGED DAILY (probably by a seeded random number generator? actually i would like to be able to select it manually)
+    // cat_type options: [set, type, cost, attack, health, rarity, cardClass, mechanics]
+    const rowCategories = [{cat_type: "set", cat_val: "WHIZBANGS_WORKSHOP"}, {cat_type: "set", cat_val: "WILD_WEST"}, {cat_type: "set", cat_val: "TITANS"}];
+    const colCategories = [{cat_type: "type", cat_val: "MINION"}, {cat_type: "type", cat_val: "SPELL"}, {cat_type: "type", cat_val: "WEAPON"}];
+
 
     const openOverlay = (row, col) => {
         setSelectedCell({row, col});
@@ -48,6 +73,24 @@ export default function StandardGrid() {
                 break;
             case "type":
                 matches = card.type === row_cat_val;
+                break;
+            case "rarity":
+                matches = card.rarity === row_cat_val;
+                break;
+            case "cardClass":
+                matches = card.cardClass === row_cat_val;
+                break;
+            case "mechanics":
+                matches = card.mechanics.includes(row_cat_val);
+                break;
+            case "cost":
+                // 0-3, 4-6, 7+
+                break;
+            case "attack":
+                // 0-4, 5-7, 8+
+                break; 
+            case "health":
+                // 0-4, 5-8, 9+
                 break;
             default:
                 console.log("Unrecognized rowCategory")
@@ -81,9 +124,6 @@ export default function StandardGrid() {
         setSelectedCell({row: null, col: null});
     }
 
-    const rowCategories = [{cat_type: "set", cat_val: "WHIZBANGS_WORKSHOP"}, {cat_type: "set", cat_val: "WILD_WEST"}, {cat_type: "set", cat_val: "TITANS"}];
-    const colCategories = [{cat_type: "type", cat_val: "MINION"}, {cat_type: "type", cat_val: "SPELL"}, {cat_type: "type", cat_val: "WEAPON"}];
-
 
     return (
         <div className="grid-container">
@@ -113,7 +153,7 @@ export default function StandardGrid() {
                 {overlayVisible && 
                     <div className="overlay-container">
                         {/* TODO: we should not allow selection of already chosen cards */}
-                        <StandardOverlay closeOverlay={closeOverlay} cardSelected={cardSelected}/>
+                        <StandardOverlay closeOverlay={closeOverlay} cardSelected={cardSelected} allCards={allCards}/>
                     </div>
                 }
             </div>
