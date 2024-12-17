@@ -106,6 +106,24 @@ export default function StandardGrid() {
             case "type":
                 matches = matches && card.type === col_cat_val;
                 break;
+            case "rarity":
+                matches = matches && card.rarity === col_cat_val;
+                break;
+            case "cardClass":
+                matches = matches && card.cardClass === col_cat_val;
+                break;
+            case "mechanics":
+                matches = matches && card.mechanics.includes(col_cat_val);
+                break;
+            case "cost":
+                // 0-3, 4-6, 7+
+                break;
+            case "attack":
+                // 0-4, 5-7, 8+
+                break; 
+            case "health":
+                // 0-4, 5-8, 9+
+                break;
             default:
                 console.log("Unrecognized colCategory")
                 break;
