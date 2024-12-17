@@ -2,17 +2,29 @@ import React, {useState} from "react"
 import {StandardOverlay} from "../components/StandardOverlay"
 import "../styles/grid.css"
 
-const GridCell = ({row, col, value, onClick}) => {    
+const GridCell = ({row, col, card, onClick}) => {    
     return (
-        <button className="grid-cell" onClick={() => onClick(row, col)}>
-            {value || "Select"}
-        </button>
+        <div>
+            {card && 
+                <div className="done-grid-cell">
+                    <img src={"https://art.hearthstonejson.com/v1/256x/" + card.id + ".jpg"} alt={card.name}></img>
+                </div>
+            }
+            {!card &&
+                <button className="grid-cell" onClick={() => onClick(row, col)}>
+                    {"Select"}
+                </button>
+            }
+        </div>
     );
 };
 
 export default function StandardGrid() {
     const [overlayVisible, setOverlayVisible] = useState(false);
     const [selectedCell, setSelectedCell] = useState({row: null, col: null});
+    const [cardGrid, setCardGrid] = useState(
+        Array(3).fill(null).map(() => Array(3).fill(null))
+    );
 
     const openOverlay = (row, col) => {
         setSelectedCell({row, col});
@@ -57,7 +69,9 @@ export default function StandardGrid() {
         }
 
         if(matches){
-            
+            var prevGrid = cardGrid;
+            prevGrid[row][col] = card;
+            setCardGrid(prevGrid);
         }
         else{
             // Display an incorrect animation over the category
@@ -88,7 +102,7 @@ export default function StandardGrid() {
                             <GridCell
                                 row={rowIndex}
                                 col={colIndex}
-                                value={null}
+                                card={cardGrid[rowIndex][colIndex]}
                                 onClick={openOverlay}
                                 key={colIndex}
                             />
@@ -98,6 +112,7 @@ export default function StandardGrid() {
 
                 {overlayVisible && 
                     <div className="overlay-container">
+                        {/* TODO: we should not allow selection of already chosen cards */}
                         <StandardOverlay closeOverlay={closeOverlay} cardSelected={cardSelected}/>
                     </div>
                 }
