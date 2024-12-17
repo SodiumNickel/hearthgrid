@@ -3,7 +3,7 @@ import {useState} from "react"
 import jCards from "../assets/cards.collectible.json"
 import "../styles/overlay.css"
 
-export function StandardOverlay({closeOverlay}) {
+export function StandardOverlay({closeOverlay, cardSelected}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [cards, setCards] = useState([]);
 
@@ -52,8 +52,9 @@ export function StandardOverlay({closeOverlay}) {
             
             // If cards name contains query at all
             const anyCards = remainingCards.filter((card) => anyMatch(card, query));
-
-            setCards(exactCards.concat(otherCards).concat(anyCards));
+            
+            // Displays the first 20 results (if user enters "the", way too many cards appear)
+            setCards(exactCards.concat(otherCards).concat(anyCards).slice(0,20));
         }
         else{
             setCards([]);
@@ -74,6 +75,7 @@ export function StandardOverlay({closeOverlay}) {
                     <Card 
                         name={card.name} 
                         image={card.id}
+                        cardSelected={() => cardSelected(card)}
                         key={card.dbfId}
                     />
                 )}

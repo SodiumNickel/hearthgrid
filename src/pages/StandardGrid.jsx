@@ -24,8 +24,51 @@ export default function StandardGrid() {
         setSelectedCell({row: null, col: null});
     };
 
-    const rowCategories = ["TGT", "Classic", "Naxxramas"];
-    const colCategories = ["Minion", "Spell", "Weapon"];
+    const cardSelected = (card) => {
+        const {row, col} = selectedCell;
+        var matches = true;
+
+        // Check if card matches row
+        const row_cat_val = rowCategories[row].cat_val;
+        switch(rowCategories[row].cat_type){
+            case "set":
+                matches = card.set === row_cat_val;
+                break;
+            case "type":
+                matches = card.type === row_cat_val;
+                break;
+            default:
+                console.log("Unrecognized rowCategory")
+                break;
+        }
+
+        // Check if card matches col
+        const col_cat_val = colCategories[col].cat_val;
+        switch(colCategories[col].cat_type){
+            case "set":
+                matches = matches && card.set === col_cat_val;
+                break;
+            case "type":
+                matches = matches && card.type === col_cat_val;
+                break;
+            default:
+                console.log("Unrecognized colCategory")
+                break;
+        }
+
+        if(matches){
+            
+        }
+        else{
+            // Display an incorrect animation over the category
+        }
+
+        setOverlayVisible(false);
+        setSelectedCell({row: null, col: null});
+    }
+
+    const rowCategories = [{cat_type: "set", cat_val: "WHIZBANGS_WORKSHOP"}, {cat_type: "set", cat_val: "WILD_WEST"}, {cat_type: "set", cat_val: "TITANS"}];
+    const colCategories = [{cat_type: "type", cat_val: "MINION"}, {cat_type: "type", cat_val: "SPELL"}, {cat_type: "type", cat_val: "WEAPON"}];
 
 
     return (
@@ -35,12 +78,12 @@ export default function StandardGrid() {
 
                 {colCategories.map((colCategory, colIndex) => (
                     <div className="grid-header" key={colIndex}>
-                        {colCategory}
+                        {colCategory.cat_val}
                     </div>
                 ))}
                 {rowCategories.map((rowCategory, rowIndex) => (
                     <React.Fragment key={rowIndex}>
-                        <div className="grid-header">{rowCategory}</div>
+                        <div className="grid-header">{rowCategory.cat_val}</div>
                         {colCategories.map((_, colIndex) => (
                             <GridCell
                                 row={rowIndex}
@@ -55,7 +98,7 @@ export default function StandardGrid() {
 
                 {overlayVisible && 
                     <div className="overlay-container">
-                        <StandardOverlay closeOverlay={closeOverlay}/>
+                        <StandardOverlay closeOverlay={closeOverlay} cardSelected={cardSelected}/>
                     </div>
                 }
             </div>

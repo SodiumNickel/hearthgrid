@@ -1,11 +1,6 @@
 import "../styles/card.css"
 
-export function Card({name, image}) {
-
-    function onClick() {
-        alert("clicked")
-    }
-
+export function Card({name, image, cardSelected}) {
     return <div className="card">
         <div className="card-name">
             <h3>{name}</h3>
@@ -14,7 +9,7 @@ export function Card({name, image}) {
             <img src={"https://art.hearthstonejson.com/v1/256x/" + image + ".jpg"} alt={name}></img>
         </div>
         <div className="card-overlay">
-            <button className="select-btn" onClick={onClick}>
+            <button className="select-btn" onClick={cardSelected}>
                 Select
             </button>
         </div>
