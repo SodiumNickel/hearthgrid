@@ -73,6 +73,7 @@ export function StandardOverlay({closeOverlay}) {
                 {cards.map(card => 
                     <Card 
                         name={card.name} 
+                        image={card.id}
                         key={card.dbfId}
                     />
                 )}
