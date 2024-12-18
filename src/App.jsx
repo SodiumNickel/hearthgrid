@@ -1,4 +1,4 @@
-import StandardGrid from "./pages/StandardGrid"
+import StandardGrid from "./pages/StandardGrid.jsx"
 
 
 export default function App() {

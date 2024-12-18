@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
-import {StandardOverlay} from "../components/StandardOverlay"
-import {CategoryHeader} from "../components/CategoryHeader"
-import {Random} from "../components/Random"
+import {StandardOverlay} from "../components/StandardOverlay.jsx"
+import {CategoryHeader} from "../components/CategoryHeader.jsx"
+import {Random} from "../components/Random.js"
 import "../styles/grid.css"
 
 const GridCell = ({row, col, card, onClick}) => {    
