@@ -57,8 +57,8 @@
 }
 
 .done-grid-cell img {
-    width: 150%;
-    height: 150%;
+    width: 160%;
+    height: 160%;
     transform: translateY(15px);
     object-fit: cover;
 }

@@ -1,0 +1,14 @@
+/* Category header stylings */
+.expansion-image {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.expansion-image img {
+    width: 50%;
+    height: 50%;
+}

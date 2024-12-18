@@ -1,23 +1,13 @@
 import {Card} from "./Card"
-import {useState, useEffect} from "react"
+import {useState} from "react"
 import "../styles/overlay.css"
 
 export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [cards, setCards] = useState([]);
 
-    const standardSets = ["CORE", 
-                          "BATTLE_OF_THE_BANDS", "TITANS", "WILD_WEST", // Year of the Wolf (2023)
-                          "EVENT", // Contains all the 'gift' cards
-                          "WHIZBANGS_WORKSHOP", "ISLAND_VACATION", "SPACE" // Year of the Pegasus (2024)
-                        ];
-    
-    // Various filters for card search
-    // If card is in standard
-    const isStandard = (card) => {
-        return standardSets.includes(card.set);
-    }
 
+    // Various filters for card search
     // If the beginning of the cards name matches the query
     const exactMatch = (card, query) => {
         return card.name.substr(0,query.length).toLowerCase() === query.toLowerCase();
@@ -39,7 +29,7 @@ export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
         setSearchQuery(query);
 
         if(query.length >= 3){
-            var remainingCards = allCards.filter(isStandard);
+            var remainingCards = allCards;
             
             // If the beginning of the cards name matches the query
             const exactCards = remainingCards.filter((card) => exactMatch(card, query));

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
 import {StandardOverlay} from "../components/StandardOverlay"
+import {CategoryHeader} from "../components/CategoryHeader"
 import {Random} from "../components/Random"
 import "../styles/grid.css"
 
@@ -22,6 +23,17 @@ const GridCell = ({row, col, card, onClick}) => {
 
 export default function StandardGrid() {
     const [allCards, setAllCards] = useState([]);
+    const standardSets = [
+        "CORE", 
+        "BATTLE_OF_THE_BANDS", "TITANS", "WILD_WEST", // Year of the Wolf (2023)
+        "EVENT", // Contains all the 'gift' cards
+        "WHIZBANGS_WORKSHOP", "ISLAND_VACATION", "SPACE" // Year of the Pegasus (2024)
+    ];
+
+    const isStandard = (card) => {
+        return standardSets.includes(card.set);
+    }
+
     useEffect(() => {
         function fetchJSONData() {
             fetch("https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json")
@@ -33,7 +45,7 @@ export default function StandardGrid() {
                     return res.json();
                 })
                 .then((data) =>
-                    setAllCards(data))
+                    setAllCards(data.filter(isStandard)))
                 .catch((error) =>
                     console.error("Unable to fetch data:", error));
         }
@@ -50,13 +62,15 @@ export default function StandardGrid() {
     const [rowCategories, setRowCategories] = useState([]);
     const [colCategories, setColCategories] = useState([])
     useEffect(() => {
+        if(allCards.length === 0){
+            return;
+        }
+
         var categories = [
             // set
-            [{cat_type: "set", cat_val: "CORE"}, 
-             {cat_type: "set", cat_val: "BATTLE_OF_THE_BANDS"},
+            [{cat_type: "set", cat_val: "BATTLE_OF_THE_BANDS"},
              {cat_type: "set", cat_val: "TITANS"}, 
              {cat_type: "set", cat_val: "WILD_WEST"},
-             {cat_type: "set", cat_val: "EVENT"}, 
              {cat_type: "set", cat_val: "WHIZBANGS_WORKSHOP"},
              {cat_type: "set", cat_val: "ISLAND_VACATION"}, 
              {cat_type: "set", cat_val: "SPACE"}
@@ -125,17 +139,96 @@ export default function StandardGrid() {
         sortedUsedCats.forEach(k => categories.splice(k, 1));
 
         // Columns can still have no duplicate vals (but need to make sure at least 2 cards exist with those categories)
+        function cardsExist(colCat) {
+            var i = 0;
+            var cardIdx = 0;
+            while(cardIdx < allCards.length && i < 2){
+                const card = allCards[cardIdx];
+
+                var allMatches = true;
+                for(let j = 0; j < 4; j++){
+                    var matches = true;
+
+                    const cat_type = j == 3 ? colCat.cat_type : rowCats[j].cat_type;
+                    const cat_val = j == 3 ? colCat.cat_val : rowCats[j].cat_val;
+
+                    switch(cat_type){
+                        case "set":
+                            matches = matches && card.set === cat_val;
+                            break;
+                        case "type":
+                            matches = matches && card.type === cat_val;
+                            break;
+                        case "rarity":
+                            matches = matches && card.rarity === cat_val;
+                            break;
+                        case "cardClass":
+                            matches = matches && card.cardClass === cat_val;
+                            break;
+                        case "mechanics":
+                            matches = matches && card.hasOwnProperty("mechanics") && card.mechanics.includes(cat_val);
+                            break;
+                        case "cost":
+                            // 0-3, 4-6, 7+
+                            if(cat_val === "0-3"){
+                                matches = matches && card.cost <= 3;
+                            }
+                            else if(cat_val === "4-6"){
+                                matches = matches && 4 <= card.cost && card.cost <= 6;
+                            }
+                            else if(cat_val === "7+"){
+                                matches = matches && 7 <= card.cost;
+                            }
+                            else{
+                                console.log("Unrecognized category")
+                            }
+                            break;
+                        default:
+                            console.log("Unrecognized category" + cat_type + cat_val);
+                            break;
+                    }
+
+                    if(!matches){
+                        allMatches = false;
+                        break;
+                    }
+                }
+                
+                if(allMatches){
+                    i += 1;
+                }
+                cardIdx += 1;
+            }
+
+            return i >= 2;
+        }
+        
         const colCats = [];
         for (let k = 0; k < 3; k++) {
-            const i = rand.nextInt(categories.length);
-            const j = rand.nextInt(categories[i].length);
+            var i = rand.nextInt(categories.length);
+            var j = rand.nextInt(categories[i].length);
+            while(!cardsExist(categories[i][j])){
+                categories[i].splice(j, 1);
+                if(categories[i].length === 0){
+                    categories.splice(i, 1);
+                }
+                
+                console.log(categories.length);
+                i = rand.nextInt(categories.length);
+                j = rand.nextInt(categories[i].length);
+            }
+
             colCats.push(categories[i][j]);
             categories[i].splice(j, 1);
+            if(categories[i].length === 0){
+                categories.splice(i, 1);
+            }
+
         }
 
         setRowCategories(rowCats);
         setColCategories(colCats);
-    }, []);
+    }, [allCards]);  // Need to make sure allCards is properly created before we generate categories
 
     const openOverlay = (row, col) => {
         setSelectedCell({row, col});
@@ -167,7 +260,7 @@ export default function StandardGrid() {
                 matches = card.cardClass === row_cat_val;
                 break;
             case "mechanics":
-                matches = card.mechanics.includes(row_cat_val);
+                matches = card.hasOwnProperty("mechanics") && card.mechanics.includes(row_cat_val);
                 break;
             case "cost":
                 // 0-3, 4-6, 7+
@@ -205,18 +298,18 @@ export default function StandardGrid() {
                 matches = matches && card.cardClass === col_cat_val;
                 break;
             case "mechanics":
-                matches = matches && card.mechanics.includes(col_cat_val);
+                matches = matches && card.hasOwnProperty("mechanics") && card.mechanics.includes(col_cat_val);
                 break;
             case "cost":
                 // 0-3, 4-6, 7+
                 if(col_cat_val === "0-3"){
-                    matches = card.cost <= 3;
+                    matches = matches && card.cost <= 3;
                 }
                 else if(col_cat_val === "4-6"){
-                    matches = 4 <= card.cost && card.cost <= 6;
+                    matches = 4 <= matches && card.cost && card.cost <= 6;
                 }
                 else if(col_cat_val === "7+"){
-                    matches = 7 <= card.cost;
+                    matches = 7 <= matches && card.cost;
                 }
                 else{
                     console.log("Unrecognized colCategory")
@@ -248,7 +341,7 @@ export default function StandardGrid() {
 
                 {colCategories.map((colCategory, colIndex) => (
                     <div className="grid-header" key={colIndex}>
-                        {colCategory.cat_val}
+                        <CategoryHeader cat_type={colCategory.cat_type} cat_val={colCategory.cat_val}/>
                     </div>
                 ))}
                 {rowCategories.map((rowCategory, rowIndex) => (
