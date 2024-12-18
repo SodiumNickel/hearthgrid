@@ -118,7 +118,7 @@ export default function StandardGrid() {
         ]
 
         const date = new Date();
-        const seed = (89 * date.getDate()) + (7 * (date.getMonth()+1)) + (109 * date.getFullYear()) 
+        const seed = (89 * date.getDate()) + (7 * (date.getMonth()+1)) + (109 * date.getFullYear())
         const rand = new Random(seed);
 
         // First randomly accept any categories for the rows (no duplicate vals)
@@ -137,70 +137,67 @@ export default function StandardGrid() {
         const sortedUsedCats = Array.from(usedCats).sort();
         sortedUsedCats.reverse();
         sortedUsedCats.forEach(k => categories.splice(k, 1));
+        
+        // If a card satisfies a given category
+        function satisfiesCat(card, cat) {
+            const cat_type = cat.cat_type
+            const cat_val = cat.cat_val
+
+            switch(cat_type){
+                case "set":
+                    return card.set === cat_val;
+                case "type":
+                    return card.type === cat_val;
+                case "rarity":
+                    return card.rarity === cat_val;
+                case "cardClass":
+                    return card.cardClass === cat_val;
+                case "mechanics":
+                    return card.hasOwnProperty("mechanics") && card.mechanics.includes(cat_val);
+                case "cost":
+                    // 0-3, 4-6, 7+
+                    if(cat_val === "0-3"){
+                        return card.cost <= 3;
+                    }
+                    else if(cat_val === "4-6"){
+                        return 4 <= card.cost && card.cost <= 6;
+                    }
+                    else if(cat_val === "7+"){
+                        return 7 <= card.cost;
+                    }
+                    else{
+                        console.log("Unrecognized category")
+                    }
+                    break;
+                default:
+                    console.log("Unrecognized category" + cat_type + cat_val);
+                    break;
+            }
+
+            // Should never reach here
+            return false;
+        }
 
         // Columns can still have no duplicate vals (but need to make sure at least 2 cards exist with those categories)
         function cardsExist(colCat) {
-            var i = 0;
+            var satisfiesCount = [0, 0, 0];
             var cardIdx = 0;
-            while(cardIdx < allCards.length && i < 2){
+          
+            while(cardIdx < allCards.length && (satisfiesCount[0] < 3 || satisfiesCount[1] < 3 || satisfiesCount[2] < 3)){
                 const card = allCards[cardIdx];
 
-                var allMatches = true;
-                for(let j = 0; j < 4; j++){
-                    var matches = true;
-
-                    const cat_type = j == 3 ? colCat.cat_type : rowCats[j].cat_type;
-                    const cat_val = j == 3 ? colCat.cat_val : rowCats[j].cat_val;
-
-                    switch(cat_type){
-                        case "set":
-                            matches = matches && card.set === cat_val;
-                            break;
-                        case "type":
-                            matches = matches && card.type === cat_val;
-                            break;
-                        case "rarity":
-                            matches = matches && card.rarity === cat_val;
-                            break;
-                        case "cardClass":
-                            matches = matches && card.cardClass === cat_val;
-                            break;
-                        case "mechanics":
-                            matches = matches && card.hasOwnProperty("mechanics") && card.mechanics.includes(cat_val);
-                            break;
-                        case "cost":
-                            // 0-3, 4-6, 7+
-                            if(cat_val === "0-3"){
-                                matches = matches && card.cost <= 3;
-                            }
-                            else if(cat_val === "4-6"){
-                                matches = matches && 4 <= card.cost && card.cost <= 6;
-                            }
-                            else if(cat_val === "7+"){
-                                matches = matches && 7 <= card.cost;
-                            }
-                            else{
-                                console.log("Unrecognized category")
-                            }
-                            break;
-                        default:
-                            console.log("Unrecognized category" + cat_type + cat_val);
-                            break;
-                    }
-
-                    if(!matches){
-                        allMatches = false;
-                        break;
+                if(satisfiesCat(card, colCat)) {
+                    for(let i = 0; i < 3; i++){    
+                        if(satisfiesCat(card, rowCats[i])) {
+                            satisfiesCount[i] += 1
+                        }
                     }
                 }
                 
-                if(allMatches){
-                    i += 1;
-                }
                 cardIdx += 1;
             }
 
-            return i >= 2;
+            return satisfiesCount[0] >= 3 && satisfiesCount[1] >= 3 && satisfiesCount[2] >= 3;
         }
         
         const colCats = [];
@@ -213,7 +210,6 @@ export default function StandardGrid() {
                     categories.splice(i, 1);
                 }
                 
-                console.log(categories.length);
                 i = rand.nextInt(categories.length);
                 j = rand.nextInt(categories[i].length);
             }
