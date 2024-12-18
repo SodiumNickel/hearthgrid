@@ -346,7 +346,9 @@ export default function StandardGrid() {
                 ))}
                 {rowCategories.map((rowCategory, rowIndex) => (
                     <React.Fragment key={rowIndex}>
-                        <div className="grid-header">{rowCategory.cat_val}</div>
+                        <div className="grid-header" key={rowIndex}>
+                        <CategoryHeader cat_type={rowCategory.cat_type} cat_val={rowCategory.cat_val}/>
+                        </div>
                         {colCategories.map((_, colIndex) => (
                             <GridCell
                                 row={rowIndex}
