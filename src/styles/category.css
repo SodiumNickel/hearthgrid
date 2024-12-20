@@ -24,7 +24,8 @@
 }
 
 .category-header-text {
-    width: 120px;
+    font-size: 15.5px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
