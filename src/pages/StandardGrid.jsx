@@ -87,8 +87,7 @@ export default function StandardGrid() {
              {cat_type: "rarity", cat_val: "LEGENDARY"},
             ],
             // cardClass
-            [{cat_type: "cardClass", cat_val: "NEUTRAL"}, 
-             {cat_type: "cardClass", cat_val: "DEATHKNIGHT"}, 
+            [{cat_type: "cardClass", cat_val: "DEATHKNIGHT"}, 
              {cat_type: "cardClass", cat_val: "DEMONHUNTER"}, 
              {cat_type: "cardClass", cat_val: "DRUID"}, 
              {cat_type: "cardClass", cat_val: "HUNTER"}, 
