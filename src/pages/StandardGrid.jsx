@@ -106,8 +106,7 @@ export default function StandardGrid() {
              {cat_type: "mechanics", cat_val: "DIVINE_SHIELD"},
              {cat_type: "mechanics", cat_val: "LIFESTEAL"},
              {cat_type: "mechanics", cat_val: "POISONOUS"},
-             {cat_type: "mechanics", cat_val: "RUSH"},
-             {cat_type: "mechanics", cat_val: "SECRET"}
+             {cat_type: "mechanics", cat_val: "RUSH"}
             ],
             // cost
             [{cat_type: "cost", cat_val: "0-3"}, 
@@ -131,7 +130,7 @@ export default function StandardGrid() {
 
             usedCats.add(i);
         }
-
+        
         // Remove category_types that are in the rows (columns cannot overlap here)
         const sortedUsedCats = Array.from(usedCats).sort();
         sortedUsedCats.reverse();
@@ -301,10 +300,10 @@ export default function StandardGrid() {
                     matches = matches && card.cost <= 3;
                 }
                 else if(col_cat_val === "4-6"){
-                    matches = 4 <= matches && card.cost && card.cost <= 6;
+                    matches = matches && 4 <= card.cost && card.cost <= 6;
                 }
                 else if(col_cat_val === "7+"){
-                    matches = 7 <= matches && card.cost;
+                    matches = matches && 7 <= card.cost;
                 }
                 else{
                     console.log("Unrecognized colCategory")

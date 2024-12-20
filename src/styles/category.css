@@ -22,3 +22,15 @@
     width: 80%;
     height: 80%;
 }
+
+.category-header-text {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    display: block;
+}

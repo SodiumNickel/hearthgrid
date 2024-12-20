@@ -10,8 +10,12 @@ export function CategoryHeader({cat_type, cat_val}) {
             return <div className="class-image">
                 <img src={"classes/" + cat_val + ".png"} alt={"cannot find logo for " + cat_val}/>
             </div>
+        case "cost":
+            return <div className="category-header-text">
+            {cat_val} COST
+            </div>
         default:
-            return <div>
+            return <div className="category-header-text">
                 {cat_val}
             </div>
     }
