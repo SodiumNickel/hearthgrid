@@ -28,6 +28,4 @@ export function CategoryHeader({cat_type, cat_val}) {
                 {cat_val}
             </div>
     }
-    
-    
 }

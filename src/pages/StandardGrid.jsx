@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react"
 import {StandardOverlay} from "../components/StandardOverlay.jsx"
 import {CategoryHeader} from "../components/CategoryHeader.jsx"
+import {StandardEnd} from "../components/StandardEnd.jsx"
 import {Random} from "../components/Random.js"
 import "../styles/grid.css"
 
-const GridCell = ({row, col, card, onClick}) => {    
+const GridCell = ({row, col, card, onClick, end}) => {    
     return (
         <div>
             {card && 
@@ -12,10 +13,14 @@ const GridCell = ({row, col, card, onClick}) => {
                     <img src={"https://art.hearthstonejson.com/v1/256x/" + card.id + ".jpg"} alt={card.name}></img>
                 </div>
             }
-            {!card &&
+            {!card && !end &&
                 <button className="grid-cell" onClick={() => onClick(row, col)}>
                     {"Select"}
                 </button>
+            }
+            {!card && end && 
+                <div className="done-grid-cell">
+                </div>
             }
         </div>
     );
@@ -224,6 +229,10 @@ export default function StandardGrid() {
         setColCategories(colCats);
     }, [allCards]);  // Need to make sure allCards is properly created before we generate categories
 
+    // Remaining guesses
+    const [guesses, setGuesses] = useState(9);
+    const [endOverlay, setEndOverlay] = useState(false);
+
     const openOverlay = (row, col) => {
         setSelectedCell({row, col});
         setOverlayVisible(true);
@@ -323,8 +332,31 @@ export default function StandardGrid() {
             // Display an incorrect animation over the category
         }
 
+        // Lower guesses by 1
+        const g = guesses-1;
+        setGuesses(g);
+        if(g === 0) {
+            console.log("DONE");
+            
+            const copyText = `HearthGrid Standard (2024-12-20)\n
+\n
+Score: 1/9\n
+🟥 🟥 🟥\n
+🟥 🟥 🟥\n
+✅ 🟥 ✅\n
+\n
+Play at: https://www.hearthgrid.com/`
+            console.log(copyText);
+            navigator.clipboard.writeText(copyText);
+            setEndOverlay(true);
+        }
+
         setOverlayVisible(false);
         setSelectedCell({row: null, col: null});
+    }
+
+    const closeEnd = () => {
+        setEndOverlay(false);
     }
 
 
@@ -349,6 +381,7 @@ export default function StandardGrid() {
                                 col={colIndex}
                                 card={cardGrid[rowIndex][colIndex]}
                                 onClick={openOverlay}
+                                end={guesses === 0}
                                 key={colIndex}
                             />
                         ))}
@@ -361,7 +394,16 @@ export default function StandardGrid() {
                         <StandardOverlay closeOverlay={closeOverlay} cardSelected={cardSelected} allCards={allCards}/>
                     </div>
                 }
+
+                {endOverlay && 
+                    <div className="overlay-container">
+                        <StandardEnd closeOverlay={closeEnd}/>
+                    </div>
+                }
             </div>
-        </div>
+            <div class="guesses-left-container">
+                <p class="guesses-left-text">Guesses Left: <span id="guesses-left">{guesses}</span></p>
+            </div>
+        </div>    
     );
 }
