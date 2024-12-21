@@ -19,9 +19,14 @@ export function CategoryHeader({cat_type, cat_val}) {
                 return <div className="category-header-text">
                 DIVINE SHIELD
                 </div>
-            }  
+            }
+            else if(cat_val === "DEATHRATTLE"){
+                return <div className="category-header-text">
+                DEATH RATTLE
+                </div>
+            }
             return <div className="category-header-text">
-            {cat_val} COST
+            {cat_val}
             </div>
         default:
             return <div className="category-header-text">

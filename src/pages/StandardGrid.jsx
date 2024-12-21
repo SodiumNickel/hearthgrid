@@ -230,8 +230,10 @@ export default function StandardGrid() {
     }, [allCards]);  // Need to make sure allCards is properly created before we generate categories
 
     // Remaining guesses
-    const [guesses, setGuesses] = useState(9);
+    const [guesses, setGuesses] = useState(2);
+    const [score, setScore] = useState(0);
     const [endOverlay, setEndOverlay] = useState(false);
+    const [copyText, setCopyText] = useState("");
 
     const openOverlay = (row, col) => {
         setSelectedCell({row, col});
@@ -323,10 +325,14 @@ export default function StandardGrid() {
                 break;
         }
 
+        var prevScore = score;
         if(matches){
             var prevGrid = cardGrid;
             prevGrid[row][col] = card;
             setCardGrid(prevGrid);
+
+            prevScore += 1;
+            setScore(prevScore);
         }
         else{
             // Display an incorrect animation over the category
@@ -336,18 +342,22 @@ export default function StandardGrid() {
         const g = guesses-1;
         setGuesses(g);
         if(g === 0) {
-            console.log("DONE");
-            
-            const copyText = `HearthGrid Standard (2024-12-20)\n
-\n
-Score: 1/9\n
-🟥 🟥 🟥\n
-🟥 🟥 🟥\n
-✅ 🟥 ✅\n
-\n
-Play at: https://www.hearthgrid.com/`
-            console.log(copyText);
-            navigator.clipboard.writeText(copyText);
+            const date = new Date();
+            // const seed = (89 * date.getDate()) + (7 * (date.getMonth()+1)) + (109 * date.getFullYear())
+            var cText = "HearthGrid Standard (" + date.getFullYear().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getDate().toString() + ")\n\n"
+                        + "Score: " + prevScore.toString() + "/9\n";
+            for(let i = 0; i < 3; i++){
+                for(let j = 0; j < 3; j++){
+                    cText += cardGrid[i][j] ? "✅" : "🟥";
+                    if(j != 2){
+                        cText += ' ';
+                    }
+                }
+                cText += '\n';
+            }
+            cText += "\nPlay at: https://www.hearthgrid.com/";
+
+            setCopyText(cText);
             setEndOverlay(true);
         }
 
@@ -397,12 +407,12 @@ Play at: https://www.hearthgrid.com/`
 
                 {endOverlay && 
                     <div className="overlay-container">
-                        <StandardEnd closeOverlay={closeEnd}/>
+                        <StandardEnd closeOverlay={closeEnd} copyText={copyText}/>
                     </div>
                 }
             </div>
-            <div class="guesses-left-container">
-                <p class="guesses-left-text">Guesses Left: <span id="guesses-left">{guesses}</span></p>
+            <div className="guesses-left-container">
+                <p className="guesses-left-text">Guesses Left: <span id="guesses-left">{guesses}</span></p>
             </div>
         </div>    
     );
