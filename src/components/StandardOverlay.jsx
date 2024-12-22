@@ -9,38 +9,51 @@ export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
 
     // Various filters for card search
     // If the beginning of the cards name matches the query
-    const exactMatch = (card, query) => {
-        return card.name.substr(0,query.length).toLowerCase() === query.toLowerCase();
+    const exactMatch = (name, query) => {
+        return name.substr(0,query.length).toLowerCase() === query.toLowerCase();
     }
     
     // If any other word beginning in cards name matches the query
-    const otherMatch = (card, query) => {
+    const otherMatch = (name, query) => {
         // Find locations of non-alphanumeric chars (spaces, hyphens, etc.) and check substrs starting from of all of those
+        const starts = name.split(' ');
+        for(let i = 0; i < starts.length; i++){
+            if(starts[i].substr(0,query.length).toLowerCase() === query.toLowerCase()) {
+                return true;
+            }
+        }
         return false;
     }
 
     // If cards name contains query at all
-    const anyMatch = (card, query) => {
-        return card.name.toLowerCase().includes(query.toLowerCase());
+    const anyMatch = (name, query) => {
+        return name.toLowerCase().includes(query.toLowerCase());
     }
 
     const onChange = (event) => {
         const query = event.target.value;
         setSearchQuery(query);
 
-        if(query.length >= 3){
+        // Removing spaces from query (to avoid stuff like " a " and "te ")
+        var count = 0;
+        for (let i = 0; i < query.length; i++) {
+            if (query[i] !== ' ')
+                count++;
+        }
+
+        if(count >= 3){
             var remainingCards = allCards;
             
             // If the beginning of the cards name matches the query
-            const exactCards = remainingCards.filter((card) => exactMatch(card, query));
-            remainingCards = remainingCards.filter((card) => !exactMatch(card, query));
+            const exactCards = remainingCards.filter((card) => exactMatch(card.name, query));
+            remainingCards = remainingCards.filter((card) => !exactMatch(card.name, query));
             
             // If any other word beginning in cards name matches the query
-            const otherCards = remainingCards.filter((card) => otherMatch(card, query));
-            remainingCards = remainingCards.filter((card) => !otherMatch(card, query));
+            const otherCards = remainingCards.filter((card) => otherMatch(card.name, query));
+            remainingCards = remainingCards.filter((card) => !otherMatch(card.name, query));
             
             // If cards name contains query at all
-            const anyCards = remainingCards.filter((card) => anyMatch(card, query));
+            const anyCards = remainingCards.filter((card) => anyMatch(card.name, query));
             
             // Displays the first 20 results (if user enters "the", way too many cards appear)
             setCards(exactCards.concat(otherCards).concat(anyCards).slice(0,20));

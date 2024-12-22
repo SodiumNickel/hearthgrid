@@ -14,9 +14,7 @@ const GridCell = ({row, col, card, onClick, end}) => {
                 </div>
             }
             {!card && !end &&
-                <button className="grid-cell" onClick={() => onClick(row, col)}>
-                    {"Select"}
-                </button>
+                <button className="grid-cell" onClick={() => onClick(row, col)}/>
             }
             {!card && end && 
                 <div className="done-grid-cell">
@@ -358,7 +356,10 @@ export default function StandardGrid() {
             cText += "\nPlay at: https://www.hearthgrid.com/";
 
             setCopyText(cText);
-            setEndOverlay(true);
+            // Do not want end screen to pop-up immediately
+            setTimeout(() => {
+                setEndOverlay(true);
+            }, 1000);
         }
 
         setOverlayVisible(false);
@@ -397,7 +398,7 @@ export default function StandardGrid() {
                         ))}
                     </React.Fragment>
                 ))}
-
+                
                 {overlayVisible && 
                     <div className="overlay-container">
                         {/* TODO: we should not allow selection of already chosen cards */}
@@ -407,7 +408,7 @@ export default function StandardGrid() {
 
                 {endOverlay && 
                     <div className="overlay-container">
-                        <StandardEnd closeOverlay={closeEnd} copyText={copyText}/>
+                        <StandardEnd closeOverlay={closeEnd} copyText={copyText} />
                     </div>
                 }
             </div>
