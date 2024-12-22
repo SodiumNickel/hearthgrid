@@ -9,15 +9,18 @@ const GridCell = ({row, col, card, onClick, end}) => {
     return (
         <div>
             {card && 
-                <div className="done-grid-cell">
-                    <img src={"https://art.hearthstonejson.com/v1/256x/" + card.id + ".jpg"} alt={card.name}></img>
+                <div className="card-front">
+                    <img src={"https://art.hearthstonejson.com/v1/render/latest/enUS/256x/" + card.id + ".png"} alt={card.name}></img>
                 </div>
             }
             {!card && !end &&
-                <button className="grid-cell" onClick={() => onClick(row, col)}/>
+                <button className="card-back" onClick={() => onClick(row, col)}>
+                    <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
+                </button>
             }
             {!card && end && 
-                <div className="done-grid-cell">
+                <div className="done-card-back">
+                    <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
                 </div>
             }
         </div>

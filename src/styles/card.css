@@ -1,19 +1,19 @@
 .card {
-    width: 150px;             /* Fixed width */
-    height: 200px;            /* Fixed height */
+    width: 150px;
+    height: 200px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.2s ease-in-out;
-    display: flex;            /* Ensure consistent layout */
-    flex-direction: column;   /* Stack content vertically */
-    justify-content: space-between; /* Distribute content */
-    align-items: center;      /* Center items horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .card-image {
-    width: 100px;             /* Fixed size for images */
+    width: 100px;
     height: 100px;
     display: flex;
     align-items: center;
@@ -22,7 +22,7 @@
     background-color: #f9f9f9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    border-radius: 8px;       /* Match card's border-radius */
+    border-radius: 8px;
 }
 
 /* Scaled and translated to match art in actual cards */
