@@ -8,15 +8,15 @@ import "../styles/grid.css"
 const GridCell = ({row, col, card, onClick, end}) => {    
     return (
         <div>
-            {card && 
+            {card &&
                 <div className="card-front">
                     <img src={"https://art.hearthstonejson.com/v1/render/latest/enUS/256x/" + card.id + ".png"} alt={card.name}></img>
                 </div>
             }
             {!card && !end &&
-                <button className="card-back" onClick={() => onClick(row, col)}>
+                <div className="card-back" onClick={() => onClick(row, col)}>
                     <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
-                </button>
+                </div>
             }
             {!card && end && 
                 <div className="done-card-back">

@@ -12,7 +12,7 @@
     display: grid;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: auto;
-    gap: 4px;
+    gap: 2px;
     align-items: center;
     justify-items: center;
     text-align: center;
@@ -63,48 +63,49 @@
 }
 
 /* Styling for card(back)s in grid */
-.card-back {
+.card-back,
+.done-card-back {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100px;
+    height: 135px;
     overflow: hidden;
-    cursor: pointer;
 }
 
-.card-back img {
-    width: 100%;
-    height: 100%;
+.card-back {
+    cursor: pointer;
+}
+.done-card-back {
+    cursor: not-allowed;
+}
+
+.card-back img,
+.done-card-back img {
+    width: 98%;
+    height: 98%;
     object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 .card-back:hover {
-    background-color: #e3e3e3;
+    opacity: 0.9; /* TODO: i want this to be an outline as well */
 }
 
 .card-front {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    cursor: default;
+    width: 100px;
+    height: 135px;
+    cursor: not-allowed;
 }
 
 .card-front img {
-    width: 100%;
-    height: 100%;
+    width: 115%;
+    height: 115%;
     object-fit: cover;
-}
-
-.done-card-back {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    cursor: no-drop;
-}
-
-.done-card-back img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    object-position: center;
+    display: block;
 }
