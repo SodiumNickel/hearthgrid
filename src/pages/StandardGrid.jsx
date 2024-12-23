@@ -7,17 +7,19 @@ import "../styles/grid.css"
 
 const GridCell = ({row, col, card, onClick, end}) => {    
     return (
-        <div>
-            {card &&
-                <div className="card-front">
-                    <img src={"https://art.hearthstonejson.com/v1/render/latest/enUS/256x/" + card.id + ".png"} alt={card.name}></img>
-                </div>
-            }
-            {!card && !end &&
-                <div className="card-back" onClick={() => onClick(row, col)}>
-                    <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
-                </div>
-            }
+        <div className="grid-cell">
+            <div className={card ? "card-flipped" : "card-not-flipped"}>
+                {card &&
+                    <div className="card-front">
+                        <img src={"https://art.hearthstonejson.com/v1/render/latest/enUS/256x/" + card.id + ".png"} alt={card.name}></img>
+                    </div>
+                }
+                {!end &&
+                    <div className="card-back" onClick={() => onClick(row, col)}>
+                        <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
+                    </div>
+                }
+            </div>
             {!card && end && 
                 <div className="done-card-back">
                     <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
@@ -231,7 +233,7 @@ export default function StandardGrid() {
     }, [allCards]);  // Need to make sure allCards is properly created before we generate categories
 
     // Remaining guesses
-    const [guesses, setGuesses] = useState(2);
+    const [guesses, setGuesses] = useState(9);
     const [score, setScore] = useState(0);
     const [endOverlay, setEndOverlay] = useState(false);
     const [copyText, setCopyText] = useState("");

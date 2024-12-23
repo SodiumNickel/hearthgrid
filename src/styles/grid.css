@@ -63,8 +63,14 @@
 }
 
 /* Styling for card(back)s in grid */
+.grid-cell {
+    width: 100px;
+    height: 135px;
+}
+
 .card-back,
 .done-card-back {
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,6 +81,9 @@
 
 .card-back {
     cursor: pointer;
+    /* For flip animation */
+    transform: rotateY(0deg);
+    backface-visibility: hidden;
 }
 .done-card-back {
     cursor: not-allowed;
@@ -94,18 +103,36 @@
 }
 
 .card-front {
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100px;
     height: 135px;
     cursor: not-allowed;
+    /* For flip animation */
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
 .card-front img {
-    width: 115%;
-    height: 115%;
+    width: 119%;
+    height: 119%;
     object-fit: cover;
     object-position: center;
     display: block;
+}
+
+/* For flip animation */
+.card-not-flipped {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.card-flipped {
+    position: relative;
+    transform: rotateY(-180deg);
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
 }
