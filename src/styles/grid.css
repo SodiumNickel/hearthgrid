@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     width: 100vw;
     margin: 0;
 }
@@ -20,9 +20,6 @@ body {
     align-items: center;
     justify-items: center;
     text-align: center;
-    /* This is causing the standard overlay to be 
-    transform: scale(1);
-    transform-origin: center; */
 }
 
 .grid-header {
