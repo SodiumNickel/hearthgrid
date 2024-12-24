@@ -418,9 +418,9 @@ export default function StandardGrid() {
                     </div>
                 }
             </div>
-            <div className="guesses-left-container">
+            {/* <div className="guesses-left-container">
                 <p className="guesses-left-text">Guesses Left: <span id="guesses-left">{guesses}</span></p>
-            </div>
+            </div> */}
         </div>    
     );
 }

@@ -97,8 +97,9 @@ body {
     display: block;
 }
 
-.card-back:hover {
-    opacity: 0.9; /* TODO: i want this to be an outline as well */
+.card-back:hover img{
+    width: 110%;
+    height: 110%; 
 }
 
 .card-front {
@@ -134,4 +135,37 @@ body {
     transform: rotateY(-180deg);
     transform-style: preserve-3d;
     transition: transform 0.6s;
+}
+
+
+/* Media queries for mobile ports */
+@media (max-width: 600px) {
+    .standard-grid {
+        grid-template-columns: repeat(4, 80px);
+        gap: 5px;
+    }
+
+    .grid-cell,
+    .card-back,
+    .done-card-back,
+    .card-front {
+        width: 90px;
+        height: 120px;
+    }
+}
+
+/* Media Query for Screens Smaller than 400px */
+@media (max-width: 400px) {
+    .standard-grid {
+        grid-template-columns: repeat(4, 80px);
+        gap: 3px;
+    }
+
+    .grid-cell,
+    .card-back,
+    .done-card-back,
+    .card-front {
+        width: 80px;
+        height: 100px;
+    }
 }
