@@ -12,25 +12,20 @@ export function CategoryHeader({cat_type, cat_val}) {
             </div>
         case "cost":
             return <div className="category-header-text">
-            {cat_val} COST
+            {cat_val} Cost
             </div>
         case "mechanics":
             if(cat_val === "DIVINE_SHIELD"){
                 return <div className="category-header-text">
-                DIVINE SHIELD
-                </div>
-            }
-            else if(cat_val === "DEATHRATTLE"){
-                return <div className="category-header-text">
-                DEATH RATTLE
+                Divine Shield
                 </div>
             }
             return <div className="category-header-text">
-            {cat_val}
+            {cat_val[0] + cat_val.substr(1).toLowerCase()}
             </div>
         default:
             return <div className="category-header-text">
-                {cat_val}
+                {cat_val[0] + cat_val.substr(1).toLowerCase()}
             </div>
     }
 }

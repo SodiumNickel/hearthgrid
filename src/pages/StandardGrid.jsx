@@ -16,13 +16,13 @@ const GridCell = ({row, col, card, onClick, end}) => {
                 }
                 {!end &&
                     <div className="card-back" onClick={() => onClick(row, col)}>
-                        <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
+                        <img src={"cardbacks/default.webp"} alt={"cannot find cardback: default"}/>
                     </div>
                 }
             </div>
             {!card && end && 
                 <div className="done-card-back">
-                    <img src={"cardbacks/CardBack0.webp"} alt={"cannot find cardback: default"}/>
+                    <img src={"cardbacks/default.webp"} alt={"cannot find cardback: default"}/>
                 </div>
             }
         </div>
@@ -379,8 +379,9 @@ export default function StandardGrid() {
     return (
         <div className="grid-container">
             <div className="standard-grid">
+                {/* The top left corner of the grid (which has nothing in it) */}
                 <div className="grid-header"></div>
-
+                
                 {colCategories.map((colCategory, colIndex) => (
                     <div className="grid-header" key={colIndex}>
                         <CategoryHeader cat_type={colCategory.cat_type} cat_val={colCategory.cat_val}/>

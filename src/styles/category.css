@@ -19,12 +19,18 @@
 }
 
 .class-image img {
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: 70%;
 }
 
+@font-face {
+    font-family: 'Belwe';
+    src: url('fonts/Belwe.ttf');
+}
 .category-header-text {
-    font-size: 15.5px;
+    color: #ffffff;
+    font-family: 'Belwe';
+    font-size: 19px;
     width: 100px;
     display: flex;
     justify-content: center;
