@@ -7,8 +7,8 @@
 }
 
 .expansion-image img {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
 }
 
 .class-image {
@@ -19,8 +19,8 @@
 }
 
 .class-image img {
-    width: 70%;
-    height: 70%;
+    width: 50%;
+    height: 50%;
 }
 
 @font-face {
@@ -30,7 +30,7 @@
 .category-header-text {
     color: #ffffff;
     font-family: 'Belwe';
-    font-size: 19px;
+    font-size: 25px;
     width: 100px;
     display: flex;
     justify-content: center;
@@ -40,4 +40,22 @@
     word-wrap: break-word;
     white-space: normal;
     display: block;
+}
+
+
+/* Media queries for mobile ports */
+@media (max-width: 1000px) {
+    .expansion-image img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .class-image img {
+        width: 70%;
+        height: 70%;
+    }
+
+    .category-header-text {
+        font-size: 19px;
+    }
 }

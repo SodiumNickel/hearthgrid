@@ -378,8 +378,16 @@ export default function StandardGrid() {
 
     return (
         <div className="grid-container">
+            <div className="title-bar">
+                <div className="logo">
+                    <img src="/hearthgrid_logo.png"/>
+                </div>
+                <div className="grid-title">
+                    HearthGrid
+                </div>
+            </div>
             <div className="standard-grid">
-                {/* The top left corner of the grid (which has nothing in it) */}
+                {/* The top left corner of the grid (which contains nothing) */}
                 <div className="grid-header"></div>
                 
                 {colCategories.map((colCategory, colIndex) => (
