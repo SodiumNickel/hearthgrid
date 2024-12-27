@@ -17,7 +17,8 @@ export function CategoryHeader({cat_type, cat_val}) {
         case "mechanics":
             if(cat_val === "DIVINE_SHIELD"){
                 return <div className="category-header-text">
-                Divine Shield
+                Divine
+                Shield
                 </div>
             }
             return <div className="category-header-text">
