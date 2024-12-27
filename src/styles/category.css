@@ -30,7 +30,7 @@
 .category-header-text {
     color: #ffffff;
     font-family: 'Belwe';
-    font-size: 25px;
+    font-size: 22px;
     width: 100px;
     display: flex;
     justify-content: center;
@@ -44,18 +44,26 @@
 
 
 /* Media queries for mobile ports */
-@media (max-width: 1000px) {
-    .expansion-image img {
-        width: 100%;
-        height: 100%;
-    }
-
-    .class-image img {
-        width: 70%;
-        height: 70%;
-    }
-
+@media (max-width: 480px) {
     .category-header-text {
-        font-size: 19px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .category-header-text {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .category-header-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 320px) {
+    .category-header-text {
+        font-size: 14px;
     }
 }
