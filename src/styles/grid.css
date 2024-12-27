@@ -190,10 +190,10 @@ body {
 
 @media (max-width: 480px) {
     .title-bar {
-        height: 50px;
+        height: 52px;
     }
     .grid-container {
-        margin-top: 50px;
+        margin-top: 52px;
     }
     .grid-title {
         font-size: 27px;
@@ -223,10 +223,10 @@ body {
 
 @media (max-width: 400px) {
     .title-bar {
-        height: 45px;
+        height: 47px;
     }
     .grid-container {
-        margin-top: 45px;
+        margin-top: 47px;
     }
     .grid-title {
         font-size: 25px;
@@ -256,10 +256,10 @@ body {
 
 @media (max-width: 360px) {
     .title-bar {
-        height: 42px;
+        height: 44px;
     }
     .grid-container {
-        margin-top: 42px;
+        margin-top: 44px;
     }
     .grid-title {
         font-size: 22px;
@@ -289,10 +289,10 @@ body {
 
 @media (max-width: 320px) {
     .title-bar {
-        height: 40px;
+        height: 42px;
     }
     .grid-container {
-        margin-top: 40px;
+        margin-top: 42px;
     }
     .grid-title {
         font-size: 21px;
