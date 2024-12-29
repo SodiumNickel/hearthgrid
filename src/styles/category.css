@@ -28,7 +28,7 @@
     src: url('/fonts/Belwe.ttf') format('truetype');
 }
 .category-header-text {
-    color: #ffffff;
+    color: #f3f3f3;
     font-family: 'Belwe';
     font-size: 22px;
     width: 100px;

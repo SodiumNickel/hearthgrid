@@ -86,16 +86,13 @@ body {
 
 /* Styling for guesses left has to change for mobile */
 .guesses-left-container {
+    color: #fefefe;
+    font-family: 'Belwe';
+    font-size: 24px;
+    overflow: hidden; 
     text-align: center;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: -20px;
+    margin-left: 110px;
 }
 
 /* Styling for card(back)s in grid */
@@ -229,6 +226,12 @@ body {
         width: 105px;
         height: 135px;
     }
+
+    .guesses-left-container {
+        font-size: 21px;
+        margin-top: -25px;
+        margin-left: 95px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -264,6 +267,12 @@ body {
     .card-front {
         width: 95px;
         height: 120px;
+    }
+
+    .guesses-left-container {
+        font-size: 19px;
+        margin-top: -25px;
+        margin-left: 80px;
     }
 }
 
@@ -301,6 +310,12 @@ body {
         width: 80px;
         height: 105px;
     }
+
+    .guesses-left-container {
+        font-size: 17px;
+        margin-top: -25px;
+        margin-left: 70px;
+    }
 }
 
 @media (max-width: 320px) {
@@ -336,5 +351,11 @@ body {
     .card-front {
         width: 70px;
         height: 90px;
+    }
+
+    .guesses-left-container {
+        font-size: 15px;
+        margin-top: -23px;
+        margin-left: 68px;
     }
 }
