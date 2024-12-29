@@ -65,13 +65,19 @@ export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
 
     return (
         <div className="standard">
-            <input 
-                type="text" 
-                placeholder="Search for cards..." 
-                className="search-input"
-                value={searchQuery}
-                onChange={(event) => onChange(event)}
-            />
+            <div className="search-row">
+                <input 
+                    type="text" 
+                    placeholder="Search for cards..." 
+                    className="search-input"
+                    value={searchQuery}
+                    onChange={(event) => onChange(event)}
+                />
+                <button onClick={closeOverlay} className="close-button">
+                    ✖
+                </button>
+            </div>
+            
             <div className="card-grid">
                 {cards.map(card => 
                     <Card 
@@ -82,9 +88,6 @@ export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
                     />
                 )}
             </div>
-            <button onClick={closeOverlay}>
-                Close
-            </button>
         </div>
     );
 }

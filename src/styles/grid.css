@@ -31,7 +31,7 @@ body {
     src: url('/fonts/Belwe.ttf') format('truetype');
 }
 .grid-title {
-    color: #ffffff;
+    color: #f3f3f3;
     font-family: 'Belwe';
     font-size: 32px;
     display: flex;

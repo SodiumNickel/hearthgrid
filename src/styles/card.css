@@ -1,10 +1,10 @@
 .card {
-    width: 150px;
+    width: 100%;
     height: 200px;
-    background-color: #f9f9f9;
+    background-color: #454545;
+    border-color: #454545;
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.2s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -16,22 +16,34 @@
 }
 
 .card-image {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+
+    border: 3px solid #454545;
     overflow: hidden;
     border-radius: 8px;
 }
 
 /* Scaled and translated to match art in actual cards */
 .card-image img {
-    width: 160%;
-    height: 160%;
     transform: translateY(15px);
     object-fit: cover;
-    border-bottom: 1px solid #ddd;
+}
+
+@font-face {
+    font-family: 'Belwe';
+    src: url('/fonts/Belwe.ttf') format('truetype');
+}
+.card-name {
+    color: #f3f3f3;
+    font-family: 'Belwe';
+    font-size: 22px;
+    display: flex;
+    overflow: hidden; 
+    text-align: center;
+    display: block;
+    margin-bottom: 7px;
 }
