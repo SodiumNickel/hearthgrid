@@ -1,0 +1,66 @@
+/* Category header stylings */
+.s-expansion-image {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.s-expansion-image img {
+    width: 17%;
+    height: 17%;
+}
+
+.s-class-image {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.s-class-image img {
+    width: 10%;
+    height: 10%;
+}
+
+@font-face {
+    font-family: 'Belwe';
+    src: url('/fonts/Belwe.ttf') format('truetype');
+}
+.s-category-header-text {
+    color: #f3f3f3;
+    font-family: 'Belwe';
+    font-size: 22px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    overflow: hidden; 
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    display: block;
+}
+
+
+/* Media queries for mobile ports */
+@media (max-width: 480px) {
+    .s-category-header-text {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .s-category-header-text {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .s-category-header-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 320px) {
+    .s-category-header-text {
+        font-size: 14px;
+    }
+}

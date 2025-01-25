@@ -416,7 +416,9 @@ export default function StandardGrid() {
                 {overlayVisible && 
                     <div className="overlay-container">
                         {/* TODO: we should not allow selection of already chosen cards */}
-                        <StandardOverlay closeOverlay={closeOverlay} cardSelected={cardSelected} allCards={allCards}/>
+                        <StandardOverlay closeOverlay={closeOverlay} cardSelected={cardSelected} allCards={allCards} 
+                            cat1={rowCategories[selectedCell.row]} cat2={colCategories[selectedCell.col]} 
+                        />
                     </div>
                 }
 

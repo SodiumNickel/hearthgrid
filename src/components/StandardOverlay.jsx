@@ -1,8 +1,9 @@
-import {Card} from "./Card.jsx"
 import {useState} from "react"
+import {Card} from "./Card.jsx"
+import {SmallCategoryHeader} from "../components/SmallCategoryHeader.jsx"
 import "../styles/overlay.css"
 
-export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
+export function StandardOverlay({closeOverlay, cardSelected, allCards, cat1, cat2}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [cards, setCards] = useState([]);
 
@@ -65,6 +66,11 @@ export function StandardOverlay({closeOverlay, cardSelected, allCards}) {
 
     return (
         <div className="standard">
+            <div className="category-intersect">
+                <SmallCategoryHeader cat_type={cat1.cat_type} cat_val={cat1.cat_val}/>
+                <SmallCategoryHeader cat_type={cat2.cat_type} cat_val={cat2.cat_val}/>
+            </div>
+
             <div className="search-row">
                 <input 
                     type="text" 
